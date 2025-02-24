@@ -1,0 +1,11 @@
+node_modules/
+.env
+prisma/migrations/
+database.sqlite
+logs/
+
+
+node_modules/
+.next/
+.env.local
+out/
