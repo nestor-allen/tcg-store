@@ -8,6 +8,7 @@ import cors from "cors";
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
 import productRouter from "./routes/products.js"
+import authRouter from "./routes/auth.js"
 
 dotenv.config();
 const app = express();
@@ -21,6 +22,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/api/products", productRouter)
+app.use("/api/auth",authRouter)
 
 app.use(express.static(path.resolve("public")));
 
