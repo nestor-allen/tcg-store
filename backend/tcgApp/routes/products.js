@@ -1,5 +1,6 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import { authenticateToken, isAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -22,7 +23,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create a new product
-router.post("/", async (req, res) => {
+router.post("/", authenticateToken, isAdmin, async (req, res) => {
   const { name, price, imageUrl } = req.body;
 
   if (!name || !price || !imageUrl) {
@@ -37,7 +38,7 @@ router.post("/", async (req, res) => {
 });
 
 // Update a product
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticateToken, isAdmin, async (req, res) => {
   const { name, price, imageUrl } = req.body;
 
   const product = await prisma.product.update({
@@ -49,7 +50,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete a product
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticateToken, isAdmin, async (req, res) => {
   await prisma.product.delete({ where: { id: req.params.id } });
   res.json({ message: "Product deleted" });
 });

@@ -14,12 +14,13 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  name     String
-  email    String  @unique
-  password String
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user")
   createdAt DateTime @default(now())
-  orders   Order[]
+  orders    Order[]
 }
 
 model Product {
